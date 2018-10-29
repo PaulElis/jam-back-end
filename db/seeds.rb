@@ -1,0 +1,5 @@
+# Artist.create(name: 'The Beatles')
+# Artist.create(name: 'Pink Floyd')
+# Artist.create(name: 'Metallica')
+# Artist.create(name: 'The Rolling Stones')
+Artist.create(name: 'Neil Young', image: 'https://www.rollingstone.com/wp-content/uploads/2018/10/neil-young-1976-live-album-songs-for-judy.jpg', listeners: 2, playcount: 5, url: 'https://www.last.fm/music/Neil+Young', mbid: '12903847129487')
