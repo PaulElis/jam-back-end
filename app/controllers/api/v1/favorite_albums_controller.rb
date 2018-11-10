@@ -6,7 +6,7 @@ class Api::V1::FavoriteAlbumsController < ApplicationController
   end
 
   def create
-    @artist = Artist.find_or_create_by(
+    @artist = FavoriteArtist.find_or_create_by(
       mbid: params['artist']['mbid']
     )
 
@@ -21,7 +21,7 @@ class Api::V1::FavoriteAlbumsController < ApplicationController
     if @favoriteAlbum.save
       render json: @favoriteAlbum
     else
-      render json: {errors: 'Ya dun goofed!'}
+      render json: {favorite_album_errors: 'Ya dun goofed!'}
       @favoriteAlbum.errors.messages
     end
   end
