@@ -17,7 +17,7 @@ class Api::V1::FavoriteAlbumsController < ApplicationController
       url: params['url'],
       favorite_artist_id: @artist.id,
     )
-    byebug
+
     if @favoriteAlbum.save
       render json: @favoriteAlbum
     else
