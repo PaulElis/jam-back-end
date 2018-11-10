@@ -6,12 +6,16 @@ class Api::V1::AlbumsController < ApplicationController
   end
 
   def create
+    @artist = Artist.find_or_create_by(
+      mbid: params['artist']['mbid']
+    )
+
     @album = Album.find_or_create_by(
       name: params['name'],
       image: params['image'][3]['#text'],
       playcount: params['playcount'],
       url: params['url'],
-      artistId: params['artist']['mbid'],
+      artist_id: @artist.id,
     )
     if @album.save
       render json: @album

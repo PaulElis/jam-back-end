@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :artists, only: [:index, :create, :destroy]
       resources :albums, only: [:index, :create, :destroy]
+      resources :favorite_artists, only: [:index, :create, :destroy]
+      resources :favorite_albums, only: [:index, :create, :destroy]
     end
   end
 
