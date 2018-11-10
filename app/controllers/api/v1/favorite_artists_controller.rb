@@ -11,6 +11,7 @@ class Api::V1::FavoriteArtistsController < ApplicationController
       image: params['image'][3]['#text'],
       listeners: params['listeners'],
       playcount: params['playcount'],
+      bio: params['bio'],
       url: params['url'],
       mbid: params['mbid'],
     )
