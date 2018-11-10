@@ -7,14 +7,16 @@ class Api::V1::FavoriteArtistsController < ApplicationController
 
   def create
     @favoriteArtist = FavoriteArtist.find_or_create_by(
-      name: params['name'],
-      image: params['image'][3]['#text'],
-      listeners: params['listeners'],
-      playcount: params['playcount'],
-      bio: params['bio'],
-      url: params['url'],
-      mbid: params['mbid'],
+      name: params['artist']['name'],
+      image: params['artist']['image'][3]['#text'],
+      listeners: params['artist']['stats']['listeners'].to_i,
+      playcount: params['artist']['stats']['playcount'].to_i,
+      bio: params['artist']['bio']['content'],
+      url: params['artist']['url'],
+      mbid: params['artist']['mbid'],
     )
+
+
     if @favoriteArtist.save
       render json: @favoriteArtist
     else
