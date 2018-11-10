@@ -22,7 +22,7 @@ class Api::V1::FavoriteArtistsController < ApplicationController
       )
       render json: {success: @favoriteArtist}
     else
-      render json: {errors: 'Ya dun goofed!'}
+      render json: {favorite_artist_errors: 'Ya dun goofed!'}
     end
   end
 
