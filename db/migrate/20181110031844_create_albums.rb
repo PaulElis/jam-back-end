@@ -5,7 +5,7 @@ class CreateAlbums < ActiveRecord::Migration[5.1]
       t.integer :playcount
       t.string :image
       t.string :url
-      t.string :artistId
+      t.integer :artist_id
     end
   end
 end
