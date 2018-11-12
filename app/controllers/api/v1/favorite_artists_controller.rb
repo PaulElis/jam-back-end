@@ -7,7 +7,7 @@ class Api::V1::FavoriteArtistsController < ApplicationController
 
   def create
     @favoriteArtist = FavoriteArtist.find_by(mbid: params['artist']['mbid'])
-
+    
     if @favoriteArtist
       render json: @favoriteArtist
     elsif !@favoriteArtist
