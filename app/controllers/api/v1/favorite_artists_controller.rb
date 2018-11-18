@@ -1,4 +1,5 @@
 class Api::V1::FavoriteArtistsController < ApplicationController
+  include ActionController::Serialization
 
   def index
     @favoriteArtists = FavoriteArtist.all
@@ -7,7 +8,7 @@ class Api::V1::FavoriteArtistsController < ApplicationController
 
   def create
     @favoriteArtist = FavoriteArtist.find_by(mbid: params['artist']['mbid'])
-    
+
     if @favoriteArtist
       render json: @favoriteArtist
     elsif !@favoriteArtist
@@ -28,10 +29,17 @@ class Api::V1::FavoriteArtistsController < ApplicationController
 
   def destroy
     @favoriteArtist = FavoriteArtist.destroy(params[:id])
+    # @deletedAlbums = FavoriteAlbum.destroy(params[:id])
+
     @favoriteArtists = FavoriteArtist.all
-      render json:
-        { success: "#{@favoriteArtist[:name]} Destroyed!",
-          favorites: @favoriteArtists }
+    @favoriteAlbums = FavoriteArtist.all.map{ |artist| artist.favorite_albums.map { |album| album }}
+
+    render json: { favorite_artists: @favoriteArtists }
+      # render json:
+      #   { success: "#{@favoriteArtist[:name]} Destroyed!",
+      #     favorite_artists: @favoriteArtists,
+      #     favorite_albums: @favoriteAlbums
+      #   }
   end
 
 end

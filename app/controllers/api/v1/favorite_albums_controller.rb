@@ -1,4 +1,5 @@
 class Api::V1::FavoriteAlbumsController < ApplicationController
+  include ActionController::Serialization
 
   def index
     @favoriteAlbums = FavoriteAlbum.all
@@ -6,26 +7,10 @@ class Api::V1::FavoriteAlbumsController < ApplicationController
   end
 
   def create
-    # @artist = FavoriteArtist.create
-    # @artist = FavoriteArtist.find_or_create_by(
-    #   mbid: params['artist']['mbid']
-    # )
     @favoriteArtist = FavoriteArtist.find_by(mbid: params['artist']['mbid'])
-    if @favoriteArtist
-      render json: @favoriteArtist
-    elsif !@favoriteArtist
-      @favoriteArtist = FavoriteArtist.find_or_create_by(
-        name: params['artist']['name'],
-        image: params['artist']['image'][3]['#text'],
-        listeners: params['artist']['stats']['listeners'].to_i,
-        playcount: params['artist']['stats']['playcount'].to_i,
-        bio: params['artist']['bio']['content'],
-        url: params['artist']['url'],
-        mbid: params['artist']['mbid'],
-      )
-      render json: {success: @favoriteArtist}
-    else
-      render json: {favorite_artist_errors: 'Ya dun goofed!'}
+
+    if !@favoriteArtist
+      FavoriteArtist.create
     end
 
     @favoriteAlbum = FavoriteAlbum.find_or_create_by(
@@ -33,8 +18,7 @@ class Api::V1::FavoriteAlbumsController < ApplicationController
       image: params['image'][3]['#text'],
       playcount: params['playcount'],
       url: params['url'],
-      favorite_artist_id: @favoriteArtist.id,
-    )
+      favorite_artist_id: @favoriteArtist.id )
     if @favoriteAlbum.save
       render json: @favoriteAlbum
     else
@@ -45,10 +29,13 @@ class Api::V1::FavoriteAlbumsController < ApplicationController
 
   def destroy
     @favoriteAlbum = FavoriteAlbum.destroy(params[:id])
-    @favoriteAlbums = FavoriteAlbum.all
+    @favoriteArtists = FavoriteArtist.all
+
       render json:
         { success: "#{@favoriteAlbum[:name]} Destroyed!",
-          favorites: @favoriteAlbums }
+          favorite_artists: @favoriteArtists,
+          favorite_albums: @favoriteArtists[0].favorite_albums,
+        }
   end
 
 end

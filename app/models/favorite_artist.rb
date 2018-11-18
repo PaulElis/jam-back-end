@@ -1,5 +1,5 @@
 class FavoriteArtist < ApplicationRecord
 
-  has_many :favorite_albums
+  has_many :favorite_albums, dependent: :destroy
 
 end
