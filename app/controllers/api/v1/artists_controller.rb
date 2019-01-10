@@ -12,7 +12,7 @@ class Api::V1::ArtistsController < ApplicationController
       listeners: params['listeners'],
       playcount: params['playcount'],
       url: params['url'],
-      bio: params['bio'],
+      bio: params['summary'],
       mbid: params['mbid'],
     )
     if @artist.save

@@ -30,7 +30,7 @@ class Api::V1::FavoriteAlbumsController < ApplicationController
   def destroy
     @favoriteAlbum = FavoriteAlbum.destroy(params[:id])
     @favoriteArtists = FavoriteArtist.all
-    
+
     render json: @favoriteArtists
   end
 
